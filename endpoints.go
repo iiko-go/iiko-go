@@ -9,9 +9,6 @@ type errorResponse struct {
 	ErrorField string `json:"error"`
 }
 
-// iiko API: /api/1/removal_types
-func RemovalTypes() {}
-
 // iiko API: /api/1/tips_types
 func TipsTypes() {}
 
