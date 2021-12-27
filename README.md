@@ -20,7 +20,8 @@ func main() {
 	}
 
 	client.SetToken(token.Token)
-
+	
+	// iikoCloud API: /api/1/discounts
 	res, err := client.Discounts(&iiko.DiscountsRequest{
 		OrganizationIDs: []iiko.UUID{
 			"18C40D75-BA2E-4AFA-9DDE-28C46E7A7CEE",
