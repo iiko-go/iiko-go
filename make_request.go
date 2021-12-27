@@ -8,10 +8,10 @@ import (
 )
 
 var (
-	ErrBadRequest          = errors.New("400 bad request")
-	ErrUnauthorized        = errors.New("401 unauthorized")
-	ErrRequestTimeout      = errors.New("408 request timeout")
-	ErrInternalServerError = errors.New("500 internal server error")
+	ErrBadRequest          = errors.New("iiko error: \"400 bad request\"")
+	ErrUnauthorized        = errors.New("iiko error: \"401 unauthorized\"")
+	ErrRequestTimeout      = errors.New("iiko error: \"408 request timeout\"")
+	ErrInternalServerError = errors.New("iiko error: \"500 internal server error\"")
 )
 
 func (c *Client) post(requiresAuth bool, endpoint string, body interface{}, onSucces interface{}, onError interface{}, opts ...Option) error {
