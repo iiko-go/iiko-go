@@ -87,6 +87,8 @@ type DiscountsResponse struct {
 	Discounts []Discount `json:"discounts"`
 }
 
+// Discounts / surcharges.
+//
 // iiko API: /api/1/discounts
 func (c *Client) Discounts(req *DiscountsRequest, opts ...Option) (*DiscountsResponse, error) {
 	var (

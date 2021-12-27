@@ -75,6 +75,8 @@ type PaymentTypesResponse struct {
 	PaymentTypes []PaymentType `json:"paymentTypes"`
 }
 
+// Payment types.
+//
 // iiko API: /api/1/payment_types
 func (c *Client) PaymentTypes(req *PaymentTypesRequest, opts ...Option) (*PaymentTypesResponse, error) {
 	var (

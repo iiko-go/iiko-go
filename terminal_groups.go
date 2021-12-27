@@ -43,6 +43,8 @@ type TerminalGroupsResponse struct {
 	TerminalGroups []TerminalGroup `json:"terminalGroups"`
 }
 
+// Method that returns information on groups of delivery terminals.
+//
 // iiko API: /api/1/terminal_groups
 func (c *Client) TerminalGroups(req *TerminalGroupsRequest, opts ...Option) (*TerminalGroupsResponse, error) {
 	var (
@@ -89,6 +91,8 @@ type TerminalGroupsIsAliveResponse struct {
 	IsAliveStatus []TerminalGroupAliveInfo `json:"isAliveStatus"`
 }
 
+// Returns information on availability of group of terminals.
+//
 // iiko API: /api/1/terminal_groups/is_alive
 func (c *Client) TerminalGroupsIsAlive(req *TerminalGroupsIsAliveRequest, opts ...Option) (*TerminalGroupsIsAliveResponse, error) {
 	var (

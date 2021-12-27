@@ -27,6 +27,8 @@ type CancelCausesResponse struct {
 	CancelCauses []CancelCauses `json:"cancelCauses"`
 }
 
+// Delivery cancel causes. Allowed from version 7.7.1.
+//
 // iiko API: /api/1/cancel_causes
 func (c *Client) CancelCauses(req *CancelCausesRequest, opts ...Option) (*CancelCausesResponse, error) {
 	var (

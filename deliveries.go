@@ -50,6 +50,8 @@ type DeliveriesOrderTypesResponse struct {
 	OrderTypes []OrderType `json:"orderTypes"`
 }
 
+// Order types.
+//
 // iiko API: /api/1/deliveries/order_types
 func (c *Client) DeliveriesOrderTypes(req *DeliveriesOrderTypesRequest, opts ...Option) (*DeliveriesOrderTypesResponse, error) {
 	var (

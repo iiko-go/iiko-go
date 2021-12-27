@@ -26,6 +26,8 @@ type NotificationsSendResponse struct {
 	CorrelationID UUID `json:"correlationId"`
 }
 
+// Send notification to external systems (iikoFront and iikoWeb).
+//
 // iiko API: /api/1/notifications/send
 func (c *Client) NotificationsSend(req *NotificationsSendRequest, opts ...Option) (*NotificationsSendResponse, error) {
 	var (

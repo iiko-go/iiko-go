@@ -108,6 +108,8 @@ type OrganizationsResponse struct {
 	Organizations []Organization `json:"organizations"`
 }
 
+// Returns organizations available to api-login user.
+//
 // iiko API: /api/1/organizations
 func (c *Client) Organizations(req *OrganizationsRequest, opts ...Option) (*OrganizationsResponse, error) {
 	var (
