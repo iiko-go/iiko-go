@@ -52,6 +52,10 @@ func NewClient(apiLogin string) (*Client, error) {
 	return client, nil
 }
 
+func (c *Client) Close() {
+	close(c.quit)
+}
+
 func (c *Client) refreshTokenCronJob() {
 	ticker := time.NewTicker(45 * time.Minute)
 
