@@ -1,7 +1,7 @@
 package iiko
 
 import (
-	"errors"
+	"fmt"
 )
 
 type TerminalGroupItem struct {
@@ -48,7 +48,7 @@ func (c *Client) TerminalGroups(req *TerminalGroupsRequest, opts ...Option) (*Te
 		return nil, err
 	}
 	if onError.ErrorDescription != "" {
-		return nil, errors.New(onError.ErrorDescription)
+		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
 	}
 	return &onSuccess, nil
 }
@@ -90,7 +90,7 @@ func (c *Client) TerminalGroupsIsAlive(req *TerminalGroupsIsAliveRequest, opts .
 		return nil, err
 	}
 	if onError.ErrorDescription != "" {
-		return nil, errors.New(onError.ErrorDescription)
+		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
 	}
 	return &onSuccess, nil
 }

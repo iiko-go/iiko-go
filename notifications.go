@@ -1,7 +1,6 @@
 package iiko
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -33,9 +32,9 @@ func (c *Client) NotificationsSend(req *NotificationsSendRequest, opts ...Option
 	if err := c.post(true, "/api/1/notifications/send", req, &onSuccess, &onError, opts...); err != nil {
 		return nil, err
 	}
-	fmt.Println(onSuccess, onError)
+
 	if onError.ErrorDescription != "" {
-		return nil, errors.New(onError.ErrorDescription)
+		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
 	}
 	return &onSuccess, nil
 }

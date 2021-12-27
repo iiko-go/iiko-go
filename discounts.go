@@ -1,6 +1,6 @@
 package iiko
 
-import "errors"
+import "fmt"
 
 type ProductCategoryDiscount struct{}
 
@@ -81,7 +81,7 @@ func (c *Client) Discounts(req *DiscountsRequest, opts ...Option) (*DiscountsRes
 		return nil, err
 	}
 	if onError.ErrorDescription != "" {
-		return nil, errors.New(onError.ErrorDescription)
+		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
 	}
 	return &onSuccess, nil
 }

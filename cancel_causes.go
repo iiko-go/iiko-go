@@ -1,6 +1,6 @@
 package iiko
 
-import "errors"
+import "fmt"
 
 type CancelCauses struct {
 	// Identifier. [required]
@@ -34,7 +34,7 @@ func (c *Client) CancelCauses(req *CancelCausesRequest, opts ...Option) (*Cancel
 		return nil, err
 	}
 	if onError.ErrorDescription != "" {
-		return nil, errors.New(onError.ErrorDescription)
+		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
 	}
 	return &onSuccess, nil
 }

@@ -1,7 +1,6 @@
 package iiko
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -100,7 +99,7 @@ func (c *Client) Organizations(req *OrganizationsRequest, opts ...Option) (*Orga
 	}
 	fmt.Println(onSuccess, onError)
 	if onError.ErrorDescription != "" {
-		return nil, errors.New(onError.ErrorDescription)
+		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
 	}
 	return &onSuccess, nil
 }

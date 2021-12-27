@@ -5,7 +5,16 @@ import (
 	"strconv"
 )
 
-var baseURL string = "https://api-ru.iiko.services"
+var (
+	baseURL string = "https://api-ru.iiko.services"
+	// iikoCloud API Timeout in seconds by default
+	defaultTimeout = "15"
+)
+
+// SetDefaultTimeout sets default Timeout header for all requests. By default 15 seconds.
+func SetDefaultTimeout(seconds int) {
+	defaultTimeout = strconv.Itoa(seconds)
+}
 
 type Client struct {
 	baseURL string
@@ -14,19 +23,25 @@ type Client struct {
 	http    *http.Client
 }
 
-// SetToken sets IIKO token for Client to use it in Authorization header if required.
-func (c *Client) SetToken(token string) {
+// setToken sets IIKO token for Client to use it in Authorization header if required.
+func (c *Client) setToken(token string) {
 	c.token = token
 }
 
-// SetTimeout sets timeout for Client to use it in Timeout header. By default 15 seconds.
-func (c *Client) SetTimeout(seconds int) {
-	c.timeout = strconv.FormatInt(int64(seconds), 10)
-}
-
-func NewClient() *Client {
-	return &Client{
+func NewClient(apiLogin string) (*Client, error) {
+	client := &Client{
 		baseURL: baseURL,
 		http:    http.DefaultClient,
 	}
+
+	token, err := client.AccessToken(&AccessTokenRequest{
+		ApiLogin: apiLogin,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	client.setToken(token.Token)
+
+	return client, nil
 }

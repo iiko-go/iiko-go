@@ -1,7 +1,7 @@
 package iiko
 
 import (
-	"errors"
+	"fmt"
 )
 
 type AccessTokenRequest struct {
@@ -26,7 +26,7 @@ func (c *Client) AccessToken(req *AccessTokenRequest, opts ...Option) (*AccessTo
 		return nil, err
 	}
 	if onError.ErrorDescription != "" {
-		return nil, errors.New(onError.ErrorDescription)
+		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
 	}
 	return &onSuccess, nil
 }

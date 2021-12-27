@@ -1,23 +1,24 @@
 package iiko
 
-import "net/http"
+import (
+	"net/http"
+	"strconv"
+)
 
 type Option interface {
 	Apply(*http.Request)
 }
 
-type withHeader struct {
-	key   string
-	value string
+type withCustomTimeout struct {
+	seconds int
 }
 
-func (wh withHeader) Apply(req *http.Request) {
-	req.Header.Add(wh.key, wh.value)
+func (wh withCustomTimeout) Apply(req *http.Request) {
+	req.Header.Set("Timeout", strconv.Itoa(wh.seconds))
 }
 
-func WithHeader(key, value string) Option {
-	return &withHeader{
-		key:   key,
-		value: value,
+func WithCustomTimeout(seconds int) Option {
+	return &withCustomTimeout{
+		seconds: seconds,
 	}
 }

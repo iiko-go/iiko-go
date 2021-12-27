@@ -1,6 +1,6 @@
 package iiko
 
-import "errors"
+import "fmt"
 
 type OrderServiceType string
 
@@ -54,7 +54,7 @@ func (c *Client) DeliveriesOrderTypes(req *DeliveriesOrderTypesRequest, opts ...
 		return nil, err
 	}
 	if onError.ErrorDescription != "" {
-		return nil, errors.New(onError.ErrorDescription)
+		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
 	}
 	return &onSuccess, nil
 }
