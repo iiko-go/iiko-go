@@ -15,6 +15,10 @@ var (
 )
 
 func (c *Client) post(requiresAuth bool, endpoint string, body interface{}, onSucces interface{}, onError interface{}, opts ...Option) error {
+	if requiresAuth && c.token == "" {
+		return ErrUnauthorized
+	}
+
 	jsonData, err := json.Marshal(body)
 	if err != nil {
 		return err
@@ -27,9 +31,6 @@ func (c *Client) post(requiresAuth bool, endpoint string, body interface{}, onSu
 	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
 
 	if requiresAuth {
-		if c.token == "" {
-			return ErrUnauthorized
-		}
 		req.Header.Set("Authorization", "Bearer "+c.token)
 	}
 
