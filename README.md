@@ -9,18 +9,11 @@ import (
 )
 
 func main() {
-	client := iiko.NewClient()
-
-	// iikoCloud API: /api/1/access_token
-	token, err := client.AccessToken(&iiko.AccessTokenRequest{
-		ApiLogin: "API_LOGIN",
-	})
+	client, err := iiko.NewClient("API_LOGIN")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
-	client.SetToken(token.Token)
 	
 	// iikoCloud API: /api/1/discounts
 	res, err := client.Discounts(&iiko.DiscountsRequest{
