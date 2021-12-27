@@ -3,6 +3,7 @@ package iiko
 import (
 	"net/http"
 	"strconv"
+	"time"
 )
 
 var (
@@ -17,10 +18,12 @@ func SetDefaultTimeout(seconds int) {
 }
 
 type Client struct {
-	baseURL string
-	token   string
-	timeout string
-	http    *http.Client
+	quit     chan struct{}
+	baseURL  string
+	apiLogin string
+	token    string
+	timeout  string
+	http     *http.Client
 }
 
 // setToken sets IIKO token for Client to use it in Authorization header if required.
@@ -30,18 +33,52 @@ func (c *Client) setToken(token string) {
 
 func NewClient(apiLogin string) (*Client, error) {
 	client := &Client{
-		baseURL: baseURL,
-		http:    http.DefaultClient,
+		baseURL:  baseURL,
+		http:     http.DefaultClient,
+		apiLogin: apiLogin,
 	}
 
-	token, err := client.AccessToken(&AccessTokenRequest{
-		ApiLogin: apiLogin,
+	resp, err := client.AccessToken(&AccessTokenRequest{
+		ApiLogin: client.apiLogin,
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	client.setToken(token.Token)
+	client.setToken(resp.Token)
+
+	go client.refreshTokenCronJob()
 
 	return client, nil
+}
+
+func (c *Client) refreshTokenCronJob() {
+	ticker := time.NewTicker(45 * time.Minute)
+
+	c.quit = make(chan struct{})
+
+	go func() {
+		for {
+			select {
+			case <-ticker.C:
+				_ = c.refreshToken()
+			case <-c.quit:
+				ticker.Stop()
+				return
+			}
+		}
+	}()
+}
+
+func (c *Client) refreshToken() error {
+	resp, err := c.AccessToken(&AccessTokenRequest{
+		ApiLogin: c.apiLogin,
+	})
+	if err != nil {
+		return err
+	}
+
+	c.setToken(resp.Token)
+
+	return nil
 }
