@@ -38,7 +38,7 @@ func NewClient(apiLogin string) (*Client, error) {
 		apiLogin: apiLogin,
 	}
 
-	resp, err := client.AccessToken(&AccessTokenRequest{
+	resp, err := client.accessToken(&AccessTokenRequest{
 		ApiLogin: client.apiLogin,
 	})
 	if err != nil {
@@ -71,7 +71,7 @@ func (c *Client) refreshTokenCronJob() {
 }
 
 func (c *Client) refreshToken() error {
-	resp, err := c.AccessToken(&AccessTokenRequest{
+	resp, err := c.accessToken(&AccessTokenRequest{
 		ApiLogin: c.apiLogin,
 	})
 	if err != nil {

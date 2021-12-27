@@ -20,7 +20,7 @@ type AccessTokenResponse struct {
 // Retrieve session key for API user.
 //
 // iiko API: /api/1/access_token
-func (c *Client) AccessToken(req *AccessTokenRequest, opts ...Option) (*AccessTokenResponse, error) {
+func (c *Client) accessToken(req *AccessTokenRequest, opts ...Option) (*AccessTokenResponse, error) {
 	var (
 		onSuccess AccessTokenResponse
 		onError   errorResponse
