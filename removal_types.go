@@ -41,11 +41,11 @@ type RemovalTypesResponse struct {
 	// Operation ID. [required]
 	CorrelationID UUID `json:"correlationId"`
 
-	// List of removal types.
+	// List of removal types. [required]
 	RemovalTypes []RemovalType `json:"paymentTypes"`
 }
 
-// Removal types.
+// Removal types (reasons for deletion). Allowed from version 7.5.3.
 //
 // iiko API: /api/1/removal_types
 func (c *Client) RemovalTypes(req *RemovalTypesRequest, opts ...Option) (*RemovalTypesResponse, error) {

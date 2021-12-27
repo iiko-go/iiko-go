@@ -9,9 +9,6 @@ type errorResponse struct {
 	ErrorField string `json:"error"`
 }
 
-// iiko API: /api/1/tips_types
-func TipsTypes() {}
-
 // iiko API: /api/1/nomenclature
 func Nomenclature() {}
 
