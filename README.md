@@ -11,6 +11,7 @@ import (
 func main() {
 	client := iiko.NewClient()
 
+	// iikoCloud API: /api/1/access_token
 	token, err := client.AccessToken(&iiko.AccessTokenRequest{
 		ApiLogin: "API_LOGIN",
 	})
