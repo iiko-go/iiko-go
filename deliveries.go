@@ -13,12 +13,16 @@ const (
 type OrderTypeItem struct {
 	// Order type ID in RMS. [required]
 	ID UUID `json:"id"`
+
 	// Order type name. [required]
 	Name string `json:"name"`
+
 	// Enum: Common, DeliveryByCourier, DeliveryPickUp Service type. [required]
 	OrderServiceType OrderServiceType `json:"orderServiceType"`
+
 	// IsDeleted attribute of order type.
 	IsDeleted bool `json:"isDeleted"`
+
 	// External system revision number.
 	ExternalRevision int64 `json:"externalRevision"`
 }
@@ -27,6 +31,7 @@ type OrderType struct {
 	// Organization ID.
 	// Can be obtained by /api/1/organizations operation. [required]
 	OrganizationID UUID `json:"organizationId"`
+
 	// Items for organization. [required]
 	Items []OrderTypeItem `json:"items"`
 }
@@ -40,6 +45,7 @@ type DeliveriesOrderTypesRequest struct {
 type DeliveriesOrderTypesResponse struct {
 	// Operation ID. [required]
 	CorrelationID UUID `json:"correlationId"`
+
 	// List of order types. [required]
 	OrderTypes []OrderType `json:"orderTypes"`
 }

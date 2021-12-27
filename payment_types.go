@@ -70,6 +70,7 @@ type PaymentTypesRequest struct {
 type PaymentTypesResponse struct {
 	// Operation ID. [required]
 	CorrelationID UUID `json:"correlationId"`
+
 	// List of payment types and terminal groups where they are available. [required]
 	PaymentTypes []PaymentType `json:"paymentTypes"`
 }

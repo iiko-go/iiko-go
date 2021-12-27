@@ -12,6 +12,7 @@ type AccessTokenRequest struct {
 type AccessTokenResponse struct {
 	// Operation ID. [required]
 	CorrelationID UUID `json:"correlationId"`
+
 	// Authentication token. The standard token lifetime is 1 hour. [required]
 	Token string `json:"token"`
 }

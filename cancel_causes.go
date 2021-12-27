@@ -5,8 +5,10 @@ import "fmt"
 type CancelCauses struct {
 	// Identifier. [required]
 	ID UUID `json:"id"`
+
 	// Name. [required]
 	Name string `json:"name"`
+
 	// Is deleted sign.
 	IsDeleted bool `json:"isDeleted"`
 }
@@ -20,6 +22,7 @@ type CancelCausesRequest struct {
 type CancelCausesResponse struct {
 	// Operation ID. [required]
 	CorrelationID UUID `json:"correlationId"`
+
 	// List of delivery cancel causes. [required]
 	CancelCauses []CancelCauses `json:"cancelCauses"`
 }
