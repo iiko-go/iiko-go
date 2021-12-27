@@ -57,17 +57,15 @@ func (c *Client) refreshTokenCronJob() {
 
 	c.quit = make(chan struct{})
 
-	go func() {
-		for {
-			select {
-			case <-ticker.C:
-				_ = c.refreshToken()
-			case <-c.quit:
-				ticker.Stop()
-				return
-			}
+	for {
+		select {
+		case <-ticker.C:
+			_ = c.refreshToken()
+		case <-c.quit:
+			ticker.Stop()
+			return
 		}
-	}()
+	}
 }
 
 func (c *Client) refreshToken() error {
