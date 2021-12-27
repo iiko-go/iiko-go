@@ -9,9 +9,6 @@ type errorResponse struct {
 	ErrorField string `json:"error"`
 }
 
-// iiko API: /api/1/stop_lists
-func StopLists() {}
-
 // iiko API: /api/1/combo/get_combos_info
 func ComboGetCombosInfo() {}
 

@@ -2,9 +2,6 @@ package iiko
 
 import "fmt"
 
-// iiko API: /api/1/nomenclature
-func Nomenclature() {}
-
 type NomenclatureRequest struct {
 	// Organization ID.
 	//
