@@ -47,7 +47,7 @@ func (c *Client) refreshTokenCronJob() {
 	for {
 		select {
 		case <-ticker.C:
-			// get new JWT token from iikoCloud API
+			// get new JWT token from iikoCloud API ang ignore error
 			resp, _ := c.accessToken(&AccessTokenRequest{
 				ApiLogin: c.apiLogin,
 			})
