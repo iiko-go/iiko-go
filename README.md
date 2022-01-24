@@ -1,4 +1,7 @@
-### Example usage 👋
+### Note
+Library is still under construction. Most of the methods are not implemented.
+
+#### Example usage 👋
 ```golang
 package main
 
