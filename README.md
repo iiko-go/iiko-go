@@ -7,6 +7,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -17,8 +18,7 @@ import (
 func main() {
 	client, err := iiko.NewClient("API_LOGIN")
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatalln(err)
 	}
 
 	// You can set a custom http.Client for making iikoCloud API request.
@@ -29,10 +29,10 @@ func main() {
 	// By default, 15 seconds is used.
 	client.SetTimeout(5 * time.Second)
 
-	// You can set a custom refreshTokenTimeout for iiko.Client.
-	// refreshTokenTimeout is the interval at which the iiko.Client wil try to get a new API token.
+	// You can set a custom refreshTokenInterval for iiko.Client.
+	// refreshTokenInterval is the interval at which the iiko.Client wil try to get a new API token.
 	// by default, 45 minutes is used.
-	client.SetRefreshTokenTimeout(30 * time.Minute)
+	client.SetRefreshTokenInterval(30 * time.Minute)
 
 	stoplistRequest := &iiko.StopListsRequest{
 		OrganizationIDs: []uuid.UUID{
@@ -44,16 +44,14 @@ func main() {
 	// iikoCloud API: /api/1/stop_lists
 	res, err := client.StopLists(stoplistRequest)
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatalln(err)
 	}
 
 	// You can alswo use custom options.
 	// For example, iiko.WithCustomTimeout() will set a custom timeout for one API request.
 	res, err = client.StopLists(stoplistRequest, iiko.WithCustomTimeout(5*time.Second))
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatalln(err)
 	}
 
 	// Now we can work with IIKO response.
