@@ -11,18 +11,18 @@ type StopListsRequest struct {
 }
 
 type StopListsResponse struct {
-	CorrelationID          string                  `json:"correlationId"`
+	CorrelationID          uuid.UUID               `json:"correlationId"`
 	TerminalGroupStopLists []TerminalGroupStopList `json:"terminalGroupStopLists"`
 }
 
 type TerminalGroupStopList struct {
-	OrganizationID string                      `json:"organizationId"`
+	OrganizationID uuid.UUID                   `json:"organizationId"`
 	Items          []TerminalGroupStopListItem `json:"items"`
 }
 
 type TerminalGroupStopListItem struct {
-	Balance   int    `json:"balance"`
-	ProductID string `json:"productId"`
+	Balance   int       `json:"balance"`
+	ProductID uuid.UUID `json:"productId"`
 }
 
 // Out-of-stock items.

@@ -55,29 +55,29 @@ type SizePrices struct {
 }
 
 type Modifiers struct {
-	ID                  string `json:"id"`
-	DefaultAmount       int    `json:"defaultAmount"`
-	MinAmount           int    `json:"minAmount"`
-	MaxAmount           int    `json:"maxAmount"`
-	Required            bool   `json:"required"`
-	HideIfDefaultAmount bool   `json:"hideIfDefaultAmount"`
-	Splittable          bool   `json:"splittable"`
-	FreeOfChargeAmount  int    `json:"freeOfChargeAmount"`
+	ID                  uuid.UUID `json:"id"`
+	DefaultAmount       int       `json:"defaultAmount"`
+	MinAmount           int       `json:"minAmount"`
+	MaxAmount           int       `json:"maxAmount"`
+	Required            bool      `json:"required"`
+	HideIfDefaultAmount bool      `json:"hideIfDefaultAmount"`
+	Splittable          bool      `json:"splittable"`
+	FreeOfChargeAmount  int       `json:"freeOfChargeAmount"`
 }
 
 type ChildModifiers struct {
-	ID                  string `json:"id"`
-	DefaultAmount       int    `json:"defaultAmount"`
-	MinAmount           int    `json:"minAmount"`
-	MaxAmount           int    `json:"maxAmount"`
-	Required            bool   `json:"required"`
-	HideIfDefaultAmount bool   `json:"hideIfDefaultAmount"`
-	Splittable          bool   `json:"splittable"`
-	FreeOfChargeAmount  int    `json:"freeOfChargeAmount"`
+	ID                  uuid.UUID `json:"id"`
+	DefaultAmount       int       `json:"defaultAmount"`
+	MinAmount           int       `json:"minAmount"`
+	MaxAmount           int       `json:"maxAmount"`
+	Required            bool      `json:"required"`
+	HideIfDefaultAmount bool      `json:"hideIfDefaultAmount"`
+	Splittable          bool      `json:"splittable"`
+	FreeOfChargeAmount  int       `json:"freeOfChargeAmount"`
 }
 
 type GroupModifiers struct {
-	ID                                   string           `json:"id"`
+	ID                                   uuid.UUID        `json:"id"`
 	MinAmount                            int              `json:"minAmount"`
 	MaxAmount                            int              `json:"maxAmount"`
 	Required                             bool             `json:"required"`
@@ -99,11 +99,11 @@ type Product struct {
 	CarbohydratesFullAmount int              `json:"carbohydratesFullAmount"`
 	EnergyFullAmount        int              `json:"energyFullAmount"`
 	Weight                  int              `json:"weight"`
-	GroupID                 string           `json:"groupId"`
-	ProductCategoryID       string           `json:"productCategoryId"`
+	GroupID                 uuid.UUID        `json:"groupId"`
+	ProductCategoryID       uuid.UUID        `json:"productCategoryId"`
 	Type                    string           `json:"type"`
 	OrderItemType           string           `json:"orderItemType"`
-	ModifierSchemaID        string           `json:"modifierSchemaId"`
+	ModifierSchemaID        uuid.UUID        `json:"modifierSchemaId"`
 	ModifierSchemaName      string           `json:"modifierSchemaName"`
 	Splittable              bool             `json:"splittable"`
 	MeasureUnit             string           `json:"measureUnit"`
@@ -117,7 +117,7 @@ type Product struct {
 	FullNameEnglish         string           `json:"fullNameEnglish"`
 	UseBalanceForSell       bool             `json:"useBalanceForSell"`
 	CanSetOpenPrice         bool             `json:"canSetOpenPrice"`
-	ID                      string           `json:"id"`
+	ID                      uuid.UUID        `json:"id"`
 	Code                    string           `json:"code"`
 	Name                    string           `json:"name"`
 	Description             string           `json:"description"`
@@ -131,10 +131,10 @@ type Product struct {
 }
 
 type Size struct {
-	ID        string `json:"id"`
-	Name      string `json:"name"`
-	Priority  int    `json:"priority"`
-	IsDefault bool   `json:"isDefault"`
+	ID        uuid.UUID `json:"id"`
+	Name      string    `json:"name"`
+	Priority  int       `json:"priority"`
+	IsDefault bool      `json:"isDefault"`
 }
 
 type NomenclatureResponse struct {
