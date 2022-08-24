@@ -3,6 +3,7 @@ package iiko
 import (
 	"net/http"
 	"strconv"
+	"time"
 )
 
 type Option interface {
@@ -10,15 +11,16 @@ type Option interface {
 }
 
 type withCustomTimeout struct {
-	seconds int
+	timeout time.Duration
 }
 
 func (wh withCustomTimeout) Apply(req *http.Request) {
-	req.Header.Set("Timeout", strconv.Itoa(wh.seconds))
+	req.Header.Set("Timeout", strconv.Itoa(int(wh.timeout.Seconds())))
 }
 
-func WithCustomTimeout(seconds int) Option {
+// WithCustomTimeout is setting a custom timeout for one API request.
+func WithCustomTimeout(t time.Duration) Option {
 	return &withCustomTimeout{
-		seconds: seconds,
+		timeout: t,
 	}
 }
