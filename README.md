@@ -47,7 +47,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	// You can alswo use custom options.
+	// You can also use custom options.
 	// For example, iiko.WithCustomTimeout() will set a custom timeout for one API request.
 	res, err = client.StopLists(stoplistRequest, iiko.WithCustomTimeout(5*time.Second))
 	if err != nil {
