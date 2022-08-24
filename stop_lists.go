@@ -7,7 +7,7 @@ import (
 )
 
 type StopListsRequest struct {
-	OrganizationIds []uuid.UUID `json:"organizationIds"`
+	OrganizationIDs []uuid.UUID `json:"organizationIds"`
 }
 
 type StopListsResponse struct {
