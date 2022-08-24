@@ -21,10 +21,12 @@ func main() {
 		return
 	}
 
-	// You can set a custom http.Client for making iikoCloud API request. By default, http.DefaultClient is used.
+	// You can set a custom http.Client for making iikoCloud API request.
+	// By default, http.DefaultClient is used.
 	client.SetHTTPClient(&http.Client{})
 
-	// You can set a custom timeout for making iikoCloud API request. By default, 15 seconds is used.
+	// You can set a custom timeout for making iikoCloud API request.
+	// By default, 15 seconds is used.
 	client.SetTimeout(5 * time.Second)
 
 	// You can set a custom refreshTokenTimeout for iiko.Client.
@@ -46,7 +48,8 @@ func main() {
 		return
 	}
 
-	// You can alswo use custom options (for example, iiko.WithCustomTimeout to set a custom timeout for one API request).
+	// You can alswo use custom options.
+	// For example, iiko.WithCustomTimeout() will set a custom timeout for one API request.
 	res, err = client.StopLists(stoplistRequest, iiko.WithCustomTimeout(5*time.Second))
 	if err != nil {
 		fmt.Println(err)
