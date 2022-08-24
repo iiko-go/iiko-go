@@ -8,63 +8,58 @@ import (
 	"strconv"
 )
 
-var (
-	ErrBadRequest          = errors.New("iiko error: \"400 bad request\"")
-	ErrUnauthorized        = errors.New("iiko error: \"401 unauthorized\"")
-	ErrRequestTimeout      = errors.New("iiko error: \"408 request timeout\"")
-	ErrInternalServerError = errors.New("iiko error: \"500 internal server error\"")
-)
+var ErrMissingToken = errors.New("missing API token")
 
-func (c *Client) post(requiresAuth bool, endpoint string, body interface{}, onSucces interface{}, onError interface{}, opts ...Option) error {
+func (c *Client) post(requiresAuth bool, endpoint string, body interface{}, onSucces interface{}, opts ...Option) error {
 	if requiresAuth && c.token == "" {
-		return ErrUnauthorized
+		return ErrMissingToken
 	}
 
-	jsonData, err := json.Marshal(body)
+	// Marshal json body for request.
+	jsonBody, err := json.Marshal(body)
 	if err != nil {
 		return err
 	}
 
-	req, err := http.NewRequest("POST", c.baseURL+endpoint, bytes.NewBuffer(jsonData))
+	// Create request.
+	req, err := http.NewRequest(http.MethodPost, c.baseURL+endpoint, bytes.NewBuffer(jsonBody))
 	if err != nil {
 		return err
 	}
+
+	// Set headers.
 	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
-
 	if requiresAuth {
 		req.Header.Set("Authorization", "Bearer "+c.token)
 	}
-
 	req.Header.Set("Timeout", strconv.Itoa(int(c.timeout.Seconds())))
 
+	// Apply custom options to request.
 	for _, opt := range opts {
 		opt.Apply(req)
 	}
 
+	// Make request.
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
+
+	// If error.
 	if resp.StatusCode != 200 {
-		if err = json.NewDecoder(resp.Body).Decode(onError); err != nil {
-			switch resp.StatusCode {
-			case 400:
-				return ErrBadRequest
-			case 401:
-				return ErrUnauthorized
-			case 408:
-				return ErrRequestTimeout
-			case 500:
-				return ErrInternalServerError
-			}
+		var errorResponse ErrorResponse
+		if err = json.NewDecoder(resp.Body).Decode(errorResponse); err != nil {
 			return err
 		}
-		return nil
+		errorResponse.StatusCode = resp.StatusCode
+		return &errorResponse
 	}
 
+	// If success.
 	if err = json.NewDecoder(resp.Body).Decode(onSucces); err != nil {
 		return err
 	}
+
 	return nil
 }

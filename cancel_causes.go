@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -35,15 +33,11 @@ type CancelCausesResponse struct {
 //
 // iiko API: /api/1/cancel_causes
 func (c *Client) CancelCauses(req *CancelCausesRequest, opts ...Option) (*CancelCausesResponse, error) {
-	var (
-		onSuccess CancelCausesResponse
-		onError   errorResponse
-	)
-	if err := c.post(true, "/api/1/cancel_causes", req, &onSuccess, &onError, opts...); err != nil {
+	var response CancelCausesResponse
+
+	if err := c.post(true, "/api/1/cancel_causes", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }

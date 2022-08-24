@@ -2,7 +2,10 @@ package iiko
 
 import "github.com/google/uuid"
 
-type errorResponse struct {
+// ErrorResponse is a custom error type that represents iikoCloud API Error.
+type ErrorResponse struct {
+	// http.StatusCode of request.
+	StatusCode int `json:"-"`
 	// Operation ID [required]
 	CorrelationID uuid.UUID `json:"correlationId"`
 	// Error text [required]
@@ -10,6 +13,14 @@ type errorResponse struct {
 	// Error code.
 	ErrorField string `json:"error"`
 }
+
+// Error ...
+func (e *ErrorResponse) Error() string {
+	return e.ErrorDescription
+}
+
+// iiko API: /api/1/combo/calculate_combo_price
+func ComboCalculateComboPrice() {}
 
 // iiko API: /api/1/cities
 func Cities() {}

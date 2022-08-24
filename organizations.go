@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -114,17 +112,11 @@ type OrganizationsResponse struct {
 //
 // iiko API: /api/1/organizations
 func (c *Client) Organizations(req *OrganizationsRequest, opts ...Option) (*OrganizationsResponse, error) {
-	var (
-		onSuccess OrganizationsResponse
-		onError   errorResponse
-	)
+	var response OrganizationsResponse
 
-	if err := c.post(true, "/api/1/organizations", req, &onSuccess, &onError, opts...); err != nil {
+	if err := c.post(true, "/api/1/organizations", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	fmt.Println(onSuccess, onError)
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }

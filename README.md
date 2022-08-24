@@ -34,6 +34,7 @@ func main() {
 	// by default, 45 minutes is used.
 	client.SetRefreshTokenInterval(30 * time.Minute)
 
+	// Stoplist request.
 	stoplistRequest := &iiko.StopListsRequest{
 		OrganizationIDs: []uuid.UUID{
 			uuid.MustParse("18C40D75-BA2E-4AFA-9DDE-28C46E7A7CEE"),
@@ -44,7 +45,16 @@ func main() {
 	// iikoCloud API: /api/1/stop_lists
 	res, err := client.StopLists(stoplistRequest)
 	if err != nil {
-		log.Fatalln(err)
+		// Check if the error is IIKO API Error.
+		if iikoError, ok := err.(*iiko.ErrorResponse); ok {
+			fmt.Println(iikoError.StatusCode)
+			fmt.Println(iikoError.CorrelationID)
+			fmt.Println(iikoError.ErrorDescription)
+			fmt.Println(iikoError.ErrorField)
+			return
+		} else {
+			log.Fatalln(err)
+		}
 	}
 
 	// You can also use custom options.

@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -161,15 +159,11 @@ type NomenclatureResponse struct {
 //
 // iiko API: /api/1/nomenclature
 func (c *Client) Nomenclature(req *NomenclatureRequest, opts ...Option) (*NomenclatureResponse, error) {
-	var (
-		onSuccess NomenclatureResponse
-		onError   errorResponse
-	)
-	if err := c.post(false, "/api/1/nomenclature", req, &onSuccess, &onError, opts...); err != nil {
+	var response NomenclatureResponse
+
+	if err := c.post(false, "/api/1/nomenclature", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }

@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -95,15 +93,11 @@ type DiscountsResponse struct {
 //
 // iiko API: /api/1/discounts
 func (c *Client) Discounts(req *DiscountsRequest, opts ...Option) (*DiscountsResponse, error) {
-	var (
-		onSuccess DiscountsResponse
-		onError   errorResponse
-	)
-	if err := c.post(true, "/api/1/discounts", req, &onSuccess, &onError, opts...); err != nil {
+	var response DiscountsResponse
+
+	if err := c.post(true, "/api/1/discounts", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }

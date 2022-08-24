@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -49,17 +47,13 @@ type TerminalGroupsResponse struct {
 //
 // iiko API: /api/1/terminal_groups
 func (c *Client) TerminalGroups(req *TerminalGroupsRequest, opts ...Option) (*TerminalGroupsResponse, error) {
-	var (
-		onSuccess TerminalGroupsResponse
-		onError   errorResponse
-	)
-	if err := c.post(true, "/api/1/terminal_groups", req, &onSuccess, &onError, opts...); err != nil {
+	var response TerminalGroupsResponse
+
+	if err := c.post(true, "/api/1/terminal_groups", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }
 
 type TerminalGroupsIsAliveRequest struct {
@@ -97,15 +91,11 @@ type TerminalGroupsIsAliveResponse struct {
 //
 // iiko API: /api/1/terminal_groups/is_alive
 func (c *Client) TerminalGroupsIsAlive(req *TerminalGroupsIsAliveRequest, opts ...Option) (*TerminalGroupsIsAliveResponse, error) {
-	var (
-		onSuccess TerminalGroupsIsAliveResponse
-		onError   errorResponse
-	)
-	if err := c.post(true, "/api/1/terminal_groups/is_alive", req, &onSuccess, &onError, opts...); err != nil {
+	var response TerminalGroupsIsAliveResponse
+
+	if err := c.post(true, "/api/1/terminal_groups/is_alive", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }

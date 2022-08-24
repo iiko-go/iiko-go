@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -53,15 +51,11 @@ type RemovalTypesResponse struct {
 //
 // iiko API: /api/1/removal_types
 func (c *Client) RemovalTypes(req *RemovalTypesRequest, opts ...Option) (*RemovalTypesResponse, error) {
-	var (
-		onSuccess RemovalTypesResponse
-		onError   errorResponse
-	)
-	if err := c.post(true, "/api/1/removal_types", req, &onSuccess, &onError, opts...); err != nil {
+	var response RemovalTypesResponse
+
+	if err := c.post(true, "/api/1/removal_types", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }

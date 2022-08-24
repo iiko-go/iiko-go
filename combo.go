@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -46,20 +44,11 @@ type ComboCategory struct {
 //
 // iiko API: /api/1/combo/get_combos_info
 func (c *Client) ComboGetCombosInfo(req *ComboGetCombosInfoRequest, opts ...Option) (*ComboGetCombosInfoResponse, error) {
-	var (
-		onSuccess ComboGetCombosInfoResponse
-		onError   errorResponse
-	)
-	if err := c.post(true, "/api/1/combo/get_combos_info", req, &onSuccess, &onError, opts...); err != nil {
+	var response ComboGetCombosInfoResponse
+
+	if err := c.post(true, "/api/1/combo/get_combos_info", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
-}
 
-// Calculate combo price
-//
-// iiko API: /api/1/combo/calculate_combo_price
-func ComboCalculateComboPrice() {}
+	return &response, nil
+}
