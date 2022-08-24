@@ -9,12 +9,12 @@ type Client struct {
 	// Channel quit is used to notify that we should stop our JWT-refresh token Ticker.
 	quit chan struct{}
 
-	baseURL             string
-	apiLogin            string
-	token               string
-	httpClient          *http.Client
-	timeout             time.Duration
-	refreshTokenTimeout time.Duration
+	baseURL              string
+	apiLogin             string
+	token                string
+	httpClient           *http.Client
+	timeout              time.Duration
+	refreshTokenInterval time.Duration
 }
 
 // SetTimeout sets default Timeout header for all requests. By default 15 seconds.
@@ -22,9 +22,9 @@ func (c *Client) SetTimeout(t time.Duration) {
 	c.timeout = t
 }
 
-// SetRefreshTokenTimeout sets default Timeout header for all requests. By default 15 seconds.
-func (c *Client) SetRefreshTokenTimeout(t time.Duration) {
-	c.refreshTokenTimeout = t
+// SetRefreshTokenInterval sets default Timeout header for all requests. By default 15 seconds.
+func (c *Client) SetRefreshTokenInterval(t time.Duration) {
+	c.refreshTokenInterval = t
 }
 
 // SetHTTPClient sets a custom http.Client for making API request to iikoCloud.
@@ -32,9 +32,8 @@ func (c *Client) SetHTTPClient(client *http.Client) {
 	c.httpClient = client
 }
 
-//
-func (c *Client) refreshTokenByTimeout() {
-	ticker := time.NewTicker(c.refreshTokenTimeout)
+func (c *Client) refreshTokenByInterval() {
+	ticker := time.NewTicker(c.refreshTokenInterval)
 
 	c.quit = make(chan struct{})
 
@@ -61,11 +60,11 @@ func (c *Client) Close() {
 
 func NewClient(apiLogin string) (*Client, error) {
 	client := &Client{
-		baseURL:             BaseURL,
-		httpClient:          http.DefaultClient,
-		apiLogin:            apiLogin,
-		timeout:             DefaultTimeout,
-		refreshTokenTimeout: DefaultRefreshTokenTimeout,
+		baseURL:              BaseURL,
+		httpClient:           http.DefaultClient,
+		apiLogin:             apiLogin,
+		timeout:              DefaultTimeout,
+		refreshTokenInterval: DefaultRefreshTokenInterval,
 	}
 
 	resp, err := client.accessToken(&AccessTokenRequest{
@@ -77,7 +76,7 @@ func NewClient(apiLogin string) (*Client, error) {
 
 	client.token = resp.Token
 
-	go client.refreshTokenByTimeout()
+	go client.refreshTokenByInterval()
 
 	return client, nil
 }
