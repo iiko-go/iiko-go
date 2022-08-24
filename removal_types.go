@@ -1,10 +1,14 @@
 package iiko
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type RemovalType struct {
 	// Identifier. [required]
-	ID UUID `json:"id"`
+	ID uuid.UUID `json:"id"`
 
 	// Name of removal type. [required]
 	Name string `json:"name"`
@@ -34,12 +38,12 @@ type RemovalType struct {
 type RemovalTypesRequest struct {
 	// Organizations ids which removal types needs to be returned.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationIDs []UUID `json:"organizationIds"`
+	OrganizationIDs []uuid.UUID `json:"organizationIds"`
 }
 
 type RemovalTypesResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// List of removal types. [required]
 	RemovalTypes []RemovalType `json:"paymentTypes"`

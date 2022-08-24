@@ -2,6 +2,8 @@ package iiko
 
 import (
 	"fmt"
+
+	"github.com/google/uuid"
 )
 
 type ISOCurrency string
@@ -59,16 +61,16 @@ type Organization struct {
 	MarketingSourceRequiredInDelivery bool `json:"marketingSourceRequiredInDelivery"`
 
 	// Default delivery city. [required]
-	DefaultDeliveryCityID UUID `json:"defaultDeliveryCityId"`
+	DefaultDeliveryCityID uuid.UUID `json:"defaultDeliveryCityId"`
 
 	// Delivery cities. [required]
-	DeliveryCityIDs []UUID `json:"deliveryCityIds"`
+	DeliveryCityIDs []uuid.UUID `json:"deliveryCityIds"`
 
 	// Enum: "CourierOnly" "SelfServiceOnly" "CourierAndSelfService" Delivery type. [required]
 	DeliveryServiceType DeliveryServiceType `json:"deliveryServiceType"`
 
 	// Default payment type for CallCenter. [required]
-	DefaultCallCenterPaymentTypeID UUID `json:"defaultCallCenterPaymentTypeId"`
+	DefaultCallCenterPaymentTypeID uuid.UUID `json:"defaultCallCenterPaymentTypeId"`
 
 	// Allow text comments for order items (in all restaurant sections). [required]
 	OrderItemCommentEnabled bool `json:"orderItemCommentEnabled"`
@@ -81,7 +83,7 @@ type Organization struct {
 
 	// Organization ID.
 	// Can be obtained by /api/1/organizations operation. [required]
-	ID UUID `json:"id"`
+	ID uuid.UUID `json:"id"`
 
 	// Organization name. [required]
 	Name string `json:"name"`
@@ -90,7 +92,7 @@ type Organization struct {
 type OrganizationsRequest struct {
 	// Organizations IDs which have to be returned. By default - all organizations from apiLogin.
 	// Can be obtained by /api/1/organizations operation.
-	OrganizationIDs []UUID `json:"organizationIds"`
+	OrganizationIDs []uuid.UUID `json:"organizationIds"`
 
 	// A sign whether additional information about the organization should be returned (RMS version, country, restaurantAddress, etc.), or only minimal information should be returned (id and name).
 	ReturnAdditionalInfo bool `json:"returnAdditionalInfo"`
@@ -101,7 +103,7 @@ type OrganizationsRequest struct {
 
 type OrganizationsResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// List of organizations.
 	// Can be obtained by /api/1/organizations operation. [required]

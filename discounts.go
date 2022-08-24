@@ -1,6 +1,10 @@
 package iiko
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type ProductCategoryDiscount struct{}
 
@@ -14,7 +18,7 @@ const (
 
 type DiscountCardTypeInfo struct {
 	// Discount ID in RMS. [required]
-	ID UUID `json:"id"`
+	ID uuid.UUID `json:"id"`
 
 	// Discount name. [required]
 	Name string `json:"name"`
@@ -67,7 +71,7 @@ type DiscountCardTypeInfo struct {
 type Discount struct {
 	// Organization ID.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationID UUID `json:"organizationId"`
+	OrganizationID uuid.UUID `json:"organizationId"`
 
 	// Items for organization. [required]
 	Items []DiscountCardTypeInfo `json:"items"`
@@ -76,12 +80,12 @@ type Discount struct {
 type DiscountsRequest struct {
 	// Organization IDs that require discounts return.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationIDs []UUID `json:"organizationIds"`
+	OrganizationIDs []uuid.UUID `json:"organizationIds"`
 }
 
 type DiscountsResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// List of discounts/surcharges. [required]
 	Discounts []Discount `json:"discounts"`

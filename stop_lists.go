@@ -1,9 +1,13 @@
 package iiko
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type StopListsRequest struct {
-	OrganizationIds []UUID `json:"organizationIds"`
+	OrganizationIds []uuid.UUID `json:"organizationIds"`
 }
 
 type StopListsResponse struct {

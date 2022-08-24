@@ -1,8 +1,10 @@
 package iiko
 
+import "github.com/google/uuid"
+
 type errorResponse struct {
 	// Operation ID [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 	// Error text [required]
 	ErrorDescription string `json:"errorDescription"`
 	// Error code.

@@ -1,10 +1,14 @@
 package iiko
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type CommandsStatusRequest struct {
-	OrganizationID UUID `json:"organizationId"`
-	CorrelationID  UUID `json:"correlationId"`
+	OrganizationID uuid.UUID `json:"organizationId"`
+	CorrelationID  uuid.UUID `json:"correlationId"`
 }
 
 type CommandsStatusType string

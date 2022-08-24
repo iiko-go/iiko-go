@@ -1,6 +1,10 @@
 package iiko
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type PaymentProcessingType string
 
@@ -25,7 +29,7 @@ const (
 
 type PaymentType struct {
 	// Payment type ID
-	ID UUID `json:"id"`
+	ID uuid.UUID `json:"id"`
 
 	// Payment type code
 	Code string `json:"code"`
@@ -43,7 +47,7 @@ type PaymentType struct {
 	ExternalRevision int64 `json:"externalRevision"`
 
 	// Array of marketing campaigns associated with iikoCard5 payment type applicable to this organization.
-	ApplicableMarketingCampaigns []UUID `json:"applicableMarketingCampaigns"`
+	ApplicableMarketingCampaigns []uuid.UUID `json:"applicableMarketingCampaigns"`
 
 	// IsDeleted attribute of payment type.
 	IsDeleted bool `json:"isDeleted"`
@@ -64,12 +68,12 @@ type PaymentType struct {
 type PaymentTypesRequest struct {
 	// Organizations IDs which payment types have to be returned.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationIDs []UUID `json:"organizationIds"`
+	OrganizationIDs []uuid.UUID `json:"organizationIds"`
 }
 
 type PaymentTypesResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// List of payment types and terminal groups where they are available. [required]
 	PaymentTypes []PaymentType `json:"paymentTypes"`

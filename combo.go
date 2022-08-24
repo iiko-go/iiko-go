@@ -2,10 +2,12 @@ package iiko
 
 import (
 	"fmt"
+
+	"github.com/google/uuid"
 )
 
 type ComboGetCombosInfoRequest struct {
-	OrganizationID UUID `json:"organizationId"`
+	OrganizationID uuid.UUID `json:"organizationId"`
 }
 
 type ComboGetCombosInfoResponse struct {
@@ -14,30 +16,30 @@ type ComboGetCombosInfoResponse struct {
 }
 
 type Products struct {
-	ProductID               UUID     `json:"productId"`
-	SizeID                  UUID     `json:"sizeId"`
-	ForbiddenModifiers      []string `json:"forbiddenModifiers"`
-	PriceModificationAmount int      `json:"priceModificationAmount"`
+	ProductID               uuid.UUID `json:"productId"`
+	SizeID                  uuid.UUID `json:"sizeId"`
+	ForbiddenModifiers      []string  `json:"forbiddenModifiers"`
+	PriceModificationAmount int       `json:"priceModificationAmount"`
 }
 
 type Groups struct {
-	ID       UUID       `json:"id"`
+	ID       uuid.UUID  `json:"id"`
 	Name     string     `json:"name"`
 	Products []Products `json:"products"`
 }
 
 type ComboSpecification struct {
-	SourceActionID        UUID     `json:"sourceActionId"`
-	CategoryID            UUID     `json:"categoryId"`
-	Name                  string   `json:"name"`
-	PriceModificationType int      `json:"priceModificationType"`
-	PriceModification     int      `json:"priceModification"`
-	Groups                []Groups `json:"groups"`
+	SourceActionID        uuid.UUID `json:"sourceActionId"`
+	CategoryID            uuid.UUID `json:"categoryId"`
+	Name                  string    `json:"name"`
+	PriceModificationType int       `json:"priceModificationType"`
+	PriceModification     int       `json:"priceModification"`
+	Groups                []Groups  `json:"groups"`
 }
 
 type ComboCategory struct {
-	ID   UUID   `json:"id"`
-	Name string `json:"name"`
+	ID   uuid.UUID `json:"id"`
+	Name string    `json:"name"`
 }
 
 // Get combos info

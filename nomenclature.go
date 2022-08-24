@@ -1,40 +1,44 @@
 package iiko
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type NomenclatureRequest struct {
 	// Organization ID.
 	//
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationID UUID `json:"organizationId"`
+	OrganizationID uuid.UUID `json:"organizationId"`
 
 	// Initial revision. Items list will be received only in case there is a newer revision in the database.
 	StartRevision int64 `json:"startRevision"`
 }
 
 type Group struct {
-	ImageLinks       []string `json:"imageLinks"`
-	ParentGroup      string   `json:"parentGroup"`
-	Order            int      `json:"order"`
-	IsIncludedInMenu bool     `json:"isIncludedInMenu"`
-	IsGroupModifier  bool     `json:"isGroupModifier"`
-	ID               UUID     `json:"id"`
-	Code             string   `json:"code"`
-	Name             string   `json:"name"`
-	Description      string   `json:"description"`
-	AdditionalInfo   string   `json:"additionalInfo"`
-	Tags             []string `json:"tags"`
-	IsDeleted        bool     `json:"isDeleted"`
-	SeoDescription   string   `json:"seoDescription"`
-	SeoText          string   `json:"seoText"`
-	SeoKeywords      string   `json:"seoKeywords"`
-	SeoTitle         string   `json:"seoTitle"`
+	ImageLinks       []string  `json:"imageLinks"`
+	ParentGroup      string    `json:"parentGroup"`
+	Order            int       `json:"order"`
+	IsIncludedInMenu bool      `json:"isIncludedInMenu"`
+	IsGroupModifier  bool      `json:"isGroupModifier"`
+	ID               uuid.UUID `json:"id"`
+	Code             string    `json:"code"`
+	Name             string    `json:"name"`
+	Description      string    `json:"description"`
+	AdditionalInfo   string    `json:"additionalInfo"`
+	Tags             []string  `json:"tags"`
+	IsDeleted        bool      `json:"isDeleted"`
+	SeoDescription   string    `json:"seoDescription"`
+	SeoText          string    `json:"seoText"`
+	SeoKeywords      string    `json:"seoKeywords"`
+	SeoTitle         string    `json:"seoTitle"`
 }
 
 type ProductCategory struct {
-	ID        UUID   `json:"id"`
-	Name      string `json:"name"`
-	IsDeleted bool   `json:"isDeleted"`
+	ID        uuid.UUID `json:"id"`
+	Name      string    `json:"name"`
+	IsDeleted bool      `json:"isDeleted"`
 }
 
 type Price struct {
@@ -46,8 +50,8 @@ type Price struct {
 }
 
 type SizePrices struct {
-	SizeID UUID  `json:"sizeId"`
-	Price  Price `json:"price"`
+	SizeID uuid.UUID `json:"sizeId"`
+	Price  Price     `json:"price"`
 }
 
 type Modifiers struct {
@@ -135,7 +139,7 @@ type Size struct {
 
 type NomenclatureResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// Stock list group. [required]
 	Groups []Group `json:"groups"`

@@ -1,6 +1,10 @@
 package iiko
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type OrderServiceType string
 
@@ -12,7 +16,7 @@ const (
 
 type OrderTypeItem struct {
 	// Order type ID in RMS. [required]
-	ID UUID `json:"id"`
+	ID uuid.UUID `json:"id"`
 
 	// Order type name. [required]
 	Name string `json:"name"`
@@ -30,7 +34,7 @@ type OrderTypeItem struct {
 type OrderType struct {
 	// Organization ID.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationID UUID `json:"organizationId"`
+	OrganizationID uuid.UUID `json:"organizationId"`
 
 	// Items for organization. [required]
 	Items []OrderTypeItem `json:"items"`
@@ -39,12 +43,12 @@ type OrderType struct {
 type DeliveriesOrderTypesRequest struct {
 	// Organizations IDs which payment types have to be returned.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationIDs []UUID `json:"organizationIds"`
+	OrganizationIDs []uuid.UUID `json:"organizationIds"`
 }
 
 type DeliveriesOrderTypesResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// List of order types. [required]
 	OrderTypes []OrderType `json:"orderTypes"`

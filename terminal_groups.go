@@ -2,16 +2,18 @@ package iiko
 
 import (
 	"fmt"
+
+	"github.com/google/uuid"
 )
 
 type TerminalGroupItem struct {
 	// Delivery group ID.
 	// Can be obtained by /api/1/terminal_groups operation [required]
-	ID UUID `json:"id"`
+	ID uuid.UUID `json:"id"`
 
 	// Organization ID.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationID UUID `json:"organizationId"`
+	OrganizationID uuid.UUID `json:"organizationId"`
 
 	// Terminal group name. [required]
 	Name string `json:"name"`
@@ -20,7 +22,7 @@ type TerminalGroupItem struct {
 type TerminalGroup struct {
 	// Organization ID.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationID UUID `json:"organizationId"`
+	OrganizationID uuid.UUID `json:"organizationId"`
 
 	// Items for organization. [required]
 	Items []TerminalGroupItem `json:"items"`
@@ -29,7 +31,7 @@ type TerminalGroup struct {
 type TerminalGroupsRequest struct {
 	// Organizations IDs for which information is requested.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationIDs []UUID `json:"organizationIds"`
+	OrganizationIDs []uuid.UUID `json:"organizationIds"`
 
 	// Attribute that shows that response contains disabled terminal groups.
 	IncludeDisabled bool `json:"includeDisabled"`
@@ -37,7 +39,7 @@ type TerminalGroupsRequest struct {
 
 type TerminalGroupsResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// List of terminal groups broken down by organizations. [required]
 	TerminalGroups []TerminalGroup `json:"terminalGroups"`
@@ -63,11 +65,11 @@ func (c *Client) TerminalGroups(req *TerminalGroupsRequest, opts ...Option) (*Te
 type TerminalGroupsIsAliveRequest struct {
 	// Organizations IDs for which information is requested.
 	// Can be obtained by /api/1/organizations operation.
-	OrganizationIDs []UUID `json:"organizationIds"`
+	OrganizationIDs []uuid.UUID `json:"organizationIds"`
 
 	// List of terminal groups IDs.
 	// Can be obtained by /api/1/terminal_groups operation. [required]
-	TerminalGroupIDs []UUID `json:"terminalGroupIds"`
+	TerminalGroupIDs []uuid.UUID `json:"terminalGroupIds"`
 }
 
 type TerminalGroupAliveInfo struct {
@@ -76,16 +78,16 @@ type TerminalGroupAliveInfo struct {
 
 	// ID of front group of terminals.
 	// Can be obtained by /api/1/terminal_groups operation. [required]
-	TerminalGroupID UUID `json:"terminalGroupId"`
+	TerminalGroupID uuid.UUID `json:"terminalGroupId"`
 
 	// Organizations ID.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationID UUID `json:"organizationId"`
+	OrganizationID uuid.UUID `json:"organizationId"`
 }
 
 type TerminalGroupsIsAliveResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// Availability attribute of each requested terminal. [required]
 	IsAliveStatus []TerminalGroupAliveInfo `json:"isAliveStatus"`

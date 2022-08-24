@@ -2,6 +2,8 @@ package iiko
 
 import (
 	"fmt"
+
+	"github.com/google/uuid"
 )
 
 type NotificationsSendRequest struct {
@@ -9,7 +11,7 @@ type NotificationsSendRequest struct {
 	OrderSource string `json:"orderSource"`
 
 	// Order ID. [required]
-	OrderID UUID `json:"orderId"`
+	OrderID uuid.UUID `json:"orderId"`
 
 	// Additional info about the problem. [required]
 	AdditionalInfo string `json:"additionalInfo"`
@@ -18,12 +20,12 @@ type NotificationsSendRequest struct {
 	MessageType string `json:"messageType"`
 
 	// Organization UOC Id. [required]
-	OrganizationID UUID `json:"organizationId"`
+	OrganizationID uuid.UUID `json:"organizationId"`
 }
 
 type NotificationsSendResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 }
 
 // Send notification to external systems (iikoFront and iikoWeb).

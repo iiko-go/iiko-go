@@ -2,6 +2,8 @@ package iiko
 
 import (
 	"fmt"
+
+	"github.com/google/uuid"
 )
 
 type AccessTokenRequest struct {
@@ -11,7 +13,7 @@ type AccessTokenRequest struct {
 
 type AccessTokenResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// Authentication token. The standard token lifetime is 1 hour. [required]
 	Token string `json:"token"`

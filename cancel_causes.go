@@ -1,10 +1,14 @@
 package iiko
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type CancelCauses struct {
 	// Identifier. [required]
-	ID UUID `json:"id"`
+	ID uuid.UUID `json:"id"`
 
 	// Name. [required]
 	Name string `json:"name"`
@@ -16,12 +20,12 @@ type CancelCauses struct {
 type CancelCausesRequest struct {
 	// Organizations ids which delivery cancel causes needs to be returned.
 	// Can be obtained by /api/1/organizations operation. [required]
-	OrganizationIDs []UUID `json:"organizationIds"`
+	OrganizationIDs []uuid.UUID `json:"organizationIds"`
 }
 
 type CancelCausesResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// List of delivery cancel causes. [required]
 	CancelCauses []CancelCauses `json:"cancelCauses"`

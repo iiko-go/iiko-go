@@ -1,31 +1,35 @@
 package iiko
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/google/uuid"
+)
 
 type TipsType struct {
 	// Tips type ID.
 	// Can be obtained by /api/1/tips_types operation. [required]
-	ID UUID `json:"id"`
+	ID uuid.UUID `json:"id"`
 
 	// Tips type name. [required]
 	Name string `json:"name"`
 
 	// Supported organizations IDs. [required]
 	// Can be obtained by /api/1/organizations operation.
-	OrganizationIDs []UUID `json:"organizationIds"`
+	OrganizationIDs []uuid.UUID `json:"organizationIds"`
 
 	// Supported order service types. [required]
 	OrderServiceTypes []OrderServiceType `json:"orderServiceTypes"`
 
 	// Supported payment types IDs. [required]
-	PaymentTypesIDs []UUID `json:"paymentTypesIds"`
+	PaymentTypesIDs []uuid.UUID `json:"paymentTypesIds"`
 }
 
 type TipsTypesRequest struct{}
 
 type TipsTypesResponse struct {
 	// Operation ID. [required]
-	CorrelationID UUID `json:"correlationId"`
+	CorrelationID uuid.UUID `json:"correlationId"`
 
 	// List of tips types for rms group. [required]
 	TipsTypes []TipsType `json:"paymentTypes"`
