@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -58,15 +56,11 @@ type DeliveriesOrderTypesResponse struct {
 //
 // iiko API: /api/1/deliveries/order_types
 func (c *Client) DeliveriesOrderTypes(req *DeliveriesOrderTypesRequest, opts ...Option) (*DeliveriesOrderTypesResponse, error) {
-	var (
-		onSuccess DeliveriesOrderTypesResponse
-		onError   errorResponse
-	)
-	if err := c.post(true, "/api/1/deliveries/order_types", req, &onSuccess, &onError, opts...); err != nil {
+	var response DeliveriesOrderTypesResponse
+
+	if err := c.post(true, "/api/1/deliveries/order_types", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }

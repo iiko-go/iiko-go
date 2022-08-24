@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -29,15 +27,11 @@ type TerminalGroupStopListItem struct {
 //
 // iiko API: /api/1/stop_lists
 func (c *Client) StopLists(req *StopListsRequest, opts ...Option) (*StopListsResponse, error) {
-	var (
-		onSuccess StopListsResponse
-		onError   errorResponse
-	)
-	if err := c.post(false, "/api/1/stop_lists", req, &onSuccess, &onError, opts...); err != nil {
+	var response StopListsResponse
+
+	if err := c.post(false, "/api/1/stop_lists", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }

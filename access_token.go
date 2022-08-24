@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -23,15 +21,11 @@ type AccessTokenResponse struct {
 //
 // iiko API: /api/1/access_token
 func (c *Client) accessToken(req *AccessTokenRequest, opts ...Option) (*AccessTokenResponse, error) {
-	var (
-		onSuccess AccessTokenResponse
-		onError   errorResponse
-	)
-	if err := c.post(false, "/api/1/access_token", req, &onSuccess, &onError, opts...); err != nil {
+	var response AccessTokenResponse
+
+	if err := c.post(false, "/api/1/access_token", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }

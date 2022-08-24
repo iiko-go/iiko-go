@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -32,17 +30,11 @@ type NotificationsSendResponse struct {
 //
 // iiko API: /api/1/notifications/send
 func (c *Client) NotificationsSend(req *NotificationsSendRequest, opts ...Option) (*NotificationsSendResponse, error) {
-	var (
-		onSuccess NotificationsSendResponse
-		onError   errorResponse
-	)
+	var response NotificationsSendResponse
 
-	if err := c.post(true, "/api/1/notifications/send", req, &onSuccess, &onError, opts...); err != nil {
+	if err := c.post(true, "/api/1/notifications/send", req, &response, opts...); err != nil {
 		return nil, err
 	}
 
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+	return &response, nil
 }

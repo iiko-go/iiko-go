@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
@@ -27,15 +25,11 @@ type CommandsStatusResponse struct {
 //
 // iiko API: /api/1/commands/status
 func (c *Client) CommandsStatus(req *CommandsStatusRequest, opts ...Option) (*CommandsStatusResponse, error) {
-	var (
-		onSuccess CommandsStatusResponse
-		onError   errorResponse
-	)
-	if err := c.post(true, "/api/1/commands/status", req, &onSuccess, &onError, opts...); err != nil {
+	var response CommandsStatusResponse
+
+	if err := c.post(true, "/api/1/commands/status", req, &response, opts...); err != nil {
 		return nil, err
 	}
-	if onError.ErrorDescription != "" {
-		return nil, fmt.Errorf("iiko error: %q", onError.ErrorDescription)
-	}
-	return &onSuccess, nil
+
+	return &response, nil
 }
