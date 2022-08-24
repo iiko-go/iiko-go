@@ -120,7 +120,7 @@ func (c *Client) MethodName(req *MethodNameRequest, opts ...Option) (*MethodName
 - [x] /stop_lists
 - [x] /terminal_groups/is_alive
 - [x] /tips_types
-- [ ] /cities
+- [x] /cities
 - [ ] /streets/by_city
 - [ ] /deliveries/create
 - [ ] /deliveries/update_order_problem
