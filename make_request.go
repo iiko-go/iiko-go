@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strconv"
 )
 
 var (
@@ -34,13 +35,13 @@ func (c *Client) post(requiresAuth bool, endpoint string, body interface{}, onSu
 		req.Header.Set("Authorization", "Bearer "+c.token)
 	}
 
-	req.Header.Set("Timeout", defaultTimeout)
+	req.Header.Set("Timeout", strconv.Itoa(int(c.timeout.Seconds())))
 
 	for _, opt := range opts {
 		opt.Apply(req)
 	}
 
-	resp, err := c.http.Do(req)
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return err
 	}

@@ -6,41 +6,35 @@ import (
 )
 
 type Client struct {
-	// Used to notify that we should stop our JWT-refresh token Ticker.
-	quit     chan struct{}
-	baseURL  string
-	apiLogin string
-	token    string
-	http     *http.Client
+	// Channel quit is used to notify that we should stop our JWT-refresh token Ticker.
+	quit chan struct{}
+
+	baseURL             string
+	apiLogin            string
+	token               string
+	httpClient          *http.Client
+	timeout             time.Duration
+	refreshTokenTimeout time.Duration
 }
 
-func NewClient(apiLogin string) (*Client, error) {
-	client := &Client{
-		baseURL:  baseURL,
-		http:     http.DefaultClient,
-		apiLogin: apiLogin,
-	}
-
-	resp, err := client.accessToken(&AccessTokenRequest{
-		ApiLogin: client.apiLogin,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	client.token = resp.Token
-
-	go client.refreshTokenCronJob()
-
-	return client, nil
+// SetTimeout sets default Timeout header for all requests. By default 15 seconds.
+func (c *Client) SetTimeout(t time.Duration) {
+	c.timeout = t
 }
 
-func (c *Client) Close() {
-	close(c.quit)
+// SetRefreshTokenTimeout sets default Timeout header for all requests. By default 15 seconds.
+func (c *Client) SetRefreshTokenTimeout(t time.Duration) {
+	c.refreshTokenTimeout = t
 }
 
-func (c *Client) refreshTokenCronJob() {
-	ticker := time.NewTicker(45 * time.Minute)
+// SetHTTPClient sets a custom http.Client for making API request to iikoCloud.
+func (c *Client) SetHTTPClient(client *http.Client) {
+	c.httpClient = client
+}
+
+//
+func (c *Client) refreshTokenByTimeout() {
+	ticker := time.NewTicker(c.refreshTokenTimeout)
 
 	c.quit = make(chan struct{})
 
@@ -59,4 +53,31 @@ func (c *Client) refreshTokenCronJob() {
 			return
 		}
 	}
+}
+
+func (c *Client) Close() {
+	close(c.quit)
+}
+
+func NewClient(apiLogin string) (*Client, error) {
+	client := &Client{
+		baseURL:             BaseURL,
+		httpClient:          http.DefaultClient,
+		apiLogin:            apiLogin,
+		timeout:             DefaultTimeout,
+		refreshTokenTimeout: DefaultRefreshTokenTimeout,
+	}
+
+	resp, err := client.accessToken(&AccessTokenRequest{
+		ApiLogin: client.apiLogin,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	client.token = resp.Token
+
+	go client.refreshTokenByTimeout()
+
+	return client, nil
 }
