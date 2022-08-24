@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	iiko "github.com/iiko-go/iiko-go"
+	"github.com/iiko-go/iiko-go"
 )
 
 func main() {
