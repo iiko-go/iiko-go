@@ -30,7 +30,7 @@ func main() {
 	client.SetTimeout(5 * time.Second)
 
 	// You can set a custom refreshTokenTimeout for iiko.Client.
-	// refreshTokenTimeout is the interval at which the iiko.Client wil try to update the iikoCloud API token.
+	// refreshTokenTimeout is the interval at which the iiko.Client wil try to get a new API token.
 	// by default, 45 minutes is used.
 	client.SetRefreshTokenTimeout(30 * time.Minute)
 
