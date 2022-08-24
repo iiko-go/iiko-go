@@ -49,7 +49,7 @@ func (c *Client) post(requiresAuth bool, endpoint string, body interface{}, onSu
 	// If error.
 	if resp.StatusCode != 200 {
 		var errorResponse ErrorResponse
-		if err = json.NewDecoder(resp.Body).Decode(errorResponse); err != nil {
+		if err = json.NewDecoder(resp.Body).Decode(&errorResponse); err != nil {
 			return err
 		}
 		errorResponse.StatusCode = resp.StatusCode
