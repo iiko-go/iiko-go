@@ -8,7 +8,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/iiko-go/iiko-go"
+	"github.com/google/uuid"
+	iiko "github.com/iiko-go/iiko-go"
 )
 
 func main() {
@@ -17,12 +18,12 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	
+
 	// iikoCloud API: /api/1/discounts
 	res, err := client.Discounts(&iiko.DiscountsRequest{
-		OrganizationIDs: []iiko.UUID{
-			"18C40D75-BA2E-4AFA-9DDE-28C46E7A7CEE",
-			"80DE4E4A-E2E1-45E6-928B-93628D35F8C2",
+		OrganizationIDs: []uuid.UUID{
+			uuid.MustParse("18C40D75-BA2E-4AFA-9DDE-28C46E7A7CEE"),
+			uuid.MustParse("80DE4E4A-E2E1-45E6-928B-93628D35F8C2"),
 		},
 	})
 	if err != nil {
