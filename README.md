@@ -1,7 +1,7 @@
 ### Note
 Library is still under construction. Most of the methods are not implemented.
 
-#### Example usage 👋
+#### How to use
 ```golang
 package main
 
@@ -67,3 +67,71 @@ func main() {
 	}
 }
 ```
+#### Feature matrix
+- [x] /access_token
+- [x] /organizations
+- [x] /cancel_causes
+- [x] /combo/get_combos_info
+- [x] /commands/status
+- [x] /deliveries/order_types
+- [x] /discounts
+- [x] /nomenclature
+- [x] /notifications/send
+- [x] /organizations
+- [x] /payment_types
+- [x] /removal_types
+- [x] /stop_lists
+- [x] /terminal_groups/is_alive
+- [x] /tips_types
+- [ ] /cities
+- [ ] /streets/by_city
+- [ ] /deliveries/create
+- [ ] /deliveries/update_order_problem
+- [ ] /deliveries/update_order_delivery_status
+- [ ] /deliveries/update_order_courier
+- [ ] /deliveries/add_items
+- [ ] /deliveries/close
+- [ ] /deliveries/cancel
+- [ ] /deliveries/change_complete_before
+- [ ] /deliveries/change_delivery_point
+- [ ] /deliveries/change_service_type
+- [ ] /deliveries/change_payments
+- [ ] /deliveries/change_comment
+- [ ] /deliveries/print_delivery_bill
+- [ ] /deliveries/by_id
+- [ ] /deliveries/by_delivery_date_and_status
+- [ ] /deliveries/by_revision
+- [ ] /deliveries/by_delivery_date_and_phone
+- [ ] /deliveries/by_delivery_date_and_source_key_and_filter
+- [ ] /deliveries/drafts/by_id
+- [ ] /deliveries/drafts/by_filter
+- [ ] /deliveries/drafts/save
+- [ ] /deliveries/drafts/commit
+- [ ] /delivery_restrictions
+- [ ] /delivery_restrictions/update
+- [ ] /delivery_restrictions/allowed
+- [ ] /employees/couriers/locations/by_time_offset
+- [ ] /employees/couriers
+- [ ] /employees/couriers/by_role
+- [ ] /employees/couriers/active_location/by_terminal
+- [ ] /employees/couriers/active_location
+- [ ] /marketing_sources
+- [ ] /order/create
+- [ ] /order/by_id
+- [ ] /order/by_table
+- [ ] /order/add_items
+- [ ] /order/close
+- [ ] /order/change_payments
+- [ ] /reserve/available_organizations
+- [ ] /reserve/available_terminal_groups
+- [ ] /reserve/available_restaurant_sections
+- [ ] /reserve/restaurant_sections_workload
+- [ ] /reserve/create
+- [ ] /reserve/status_by_id
+- [ ] /webhooks/settings
+- [ ] /webhooks/update_settings
+- [ ] /loyalty/iiko/get_customer
+- [ ] /loyalty/iiko/calculate_checkin
+- [ ] /loyalty/iiko/get_manual_conditions
+- [ ] /combo/calculate_combo_price
+- [ ] /regions
