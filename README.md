@@ -1,6 +1,7 @@
-### Note
-Library is still under construction. Most of the methods are not implemented.
-
+_Library is still under construction. Most of the methods are not implemented yet._
+1. [How to use](#how-to-use)
+2. [How to contriubte](#how-to-contribute)
+3. [Feature matrix](#feature-matrix)
 #### How to use
 ```golang
 package main
@@ -77,6 +78,32 @@ func main() {
 	}
 }
 ```
+### How to contribute
+_In the instructions below you should replace **method_name** or **MethodName** by actual method name that you are writing._
+1. Choose a method from [feature matrix](#feature-matrix) that is not implemented yet.
+2. Create file **method_name.go** with this template:
+```golang
+package iiko
+
+type MethodNameRequest struct{}
+
+type MethodNameResponse struct{}
+
+// MethodName description here.
+//
+// iiko API: /api/1/method_name
+func (c *Client) MethodName(req *MethodNameRequest, opts ...Option) (*MethodNameResponse, error) {
+	var response MethodNameResponse
+
+	if err := c.post(false, "/api/1/method_name", req, &response, opts...); err != nil {
+		return nil, err
+	}
+
+	return &response, nil
+}
+```
+3. Put all required types and functions in this one file.
+4. Create pull request.
 #### Feature matrix
 - [x] /access_token
 - [x] /organizations
