@@ -12,7 +12,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/iiko-go/iiko-go"
 )
 
@@ -35,16 +34,8 @@ func main() {
 	// by default, 45 minutes is used.
 	client.SetRefreshTokenInterval(30 * time.Minute)
 
-	// Stoplist request.
-	stoplistRequest := &iiko.StopListsRequest{
-		OrganizationIDs: []uuid.UUID{
-			uuid.MustParse("18C40D75-BA2E-4AFA-9DDE-28C46E7A7CEE"),
-			uuid.MustParse("80DE4E4A-E2E1-45E6-928B-93628D35F8C2"),
-		},
-	}
-
-	// iikoCloud API: /api/1/stop_lists
-	res, err := client.StopLists(stoplistRequest)
+	// make request to iikoCloud API: /api/1/organizations
+	res, err := client.Organizations(&iiko.OrganizationsRequest{ReturnAdditionalInfo: true})
 	if err != nil {
 		// Check if the error is IIKO API Error.
 		if iikoError, ok := err.(*iiko.ErrorResponse); ok {
@@ -58,23 +49,9 @@ func main() {
 		}
 	}
 
-	// You can also use custom options.
-	// For example, iiko.WithCustomTimeout() will set a custom timeout for one API request.
-	res, err = client.StopLists(stoplistRequest, iiko.WithCustomTimeout(5*time.Second))
-	if err != nil {
-		log.Fatalln(err)
-	}
-
 	// Now we can work with IIKO response.
-
-	fmt.Println(res.CorrelationID) // print OperationID.
-
-	for _, terminalGroup := range res.TerminalGroupStopLists {
-		fmt.Println(terminalGroup.OrganizationID) // print OrganizationID.
-
-		for _, product := range terminalGroup.Items {
-			fmt.Println(product.ProductID) // print ProductID in stoplist.
-		}
+	for _, organization := range res.Organizations {
+		fmt.Println(organization.ID, organization.Country, organization.RestaurantAddress)
 	}
 }
 ```

@@ -161,7 +161,7 @@ type NomenclatureResponse struct {
 func (c *Client) Nomenclature(req *NomenclatureRequest, opts ...Option) (*NomenclatureResponse, error) {
 	var response NomenclatureResponse
 
-	if err := c.post(false, "/api/1/nomenclature", req, &response, opts...); err != nil {
+	if err := c.post(true, "/api/1/nomenclature", req, &response, opts...); err != nil {
 		return nil, err
 	}
 

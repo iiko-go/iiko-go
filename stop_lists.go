@@ -29,7 +29,7 @@ type TerminalGroupStopListItem struct {
 func (c *Client) StopLists(req *StopListsRequest, opts ...Option) (*StopListsResponse, error) {
 	var response StopListsResponse
 
-	if err := c.post(false, "/api/1/stop_lists", req, &response, opts...); err != nil {
+	if err := c.post(true, "/api/1/stop_lists", req, &response, opts...); err != nil {
 		return nil, err
 	}
 
