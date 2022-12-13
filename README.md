@@ -12,7 +12,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/iiko-go/iiko-go"
+	"github.com/wollzy/iiko-go"
 )
 
 func main() {
