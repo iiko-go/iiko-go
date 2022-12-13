@@ -1,4 +1,4 @@
-module github.com/iiko-go/iiko-go
+module github.com/wollzy/iiko-go
 
 go 1.18
 
