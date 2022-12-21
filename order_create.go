@@ -383,11 +383,6 @@ type IIKOCard5Info struct {
 	ApplicableManualConditions []uuid.UUID `json:"applicableManualConditions"`
 }
 
-type Card struct {
-	// Track of discount card to be applied to order.
-	Track string `json:"track"`
-}
-
 type OrderDiscountType string
 
 const (
