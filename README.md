@@ -149,3 +149,4 @@ func (c *Client) MethodName(req *MethodNameRequest, opts ...Option) (*MethodName
 - [ ] /loyalty/iiko/get_manual_conditions
 - [ ] /combo/calculate_combo_price
 - [ ] /regions
+- [x] /loyalty/iiko/customer/info
