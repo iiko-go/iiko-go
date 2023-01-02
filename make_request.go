@@ -10,7 +10,7 @@ import (
 
 var ErrMissingToken = errors.New("missing API token")
 
-func (c *Client) post(requiresAuth bool, endpoint string, body interface{}, onSucces interface{}, opts ...Option) error {
+func (c *Client) post(requiresAuth bool, endpoint string, body interface{}, response interface{}, opts ...Option) error {
 	if requiresAuth && c.token == "" {
 		return ErrMissingToken
 	}
@@ -57,7 +57,7 @@ func (c *Client) post(requiresAuth bool, endpoint string, body interface{}, onSu
 	}
 
 	// If success.
-	if err = json.NewDecoder(resp.Body).Decode(onSucces); err != nil {
+	if err = json.NewDecoder(resp.Body).Decode(response); err != nil {
 		return err
 	}
 
